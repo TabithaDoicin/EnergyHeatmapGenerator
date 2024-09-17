@@ -48,6 +48,7 @@ def create_dataframe(nsys):
         svd1list.append(Cmatobj.svdvals[0])
         svd2list.append(Cmatobj.svdvals[1])
         systems_temp_list = [t.DoubleMultilevel(N, D1, D2, Cmatobj, k, ep1, ep2 , wc, wa) for k in geff_list]
+        del Cmatobj
         systems_temp_list_energies = np.empty([geff_list_num], dtype = object)
         systems_temp_state_list = np.empty([geff_list_num], dtype = object)
         for k in range(geff_list_num):
@@ -59,6 +60,7 @@ def create_dataframe(nsys):
             energy_temp_list[n] = [systems_temp_list_energies[k][n] + additionscaling[k] for k in range(len(geff_list))]
             state_temp_list[n] = [systems_temp_state_list[k][n] for k in range(len(geff_list))]
         time.sleep(0)
+        del systems_temp_list_energies, systems_temp_state_list
         for n in range(len(state_temp_list)): #making actual state rho instead of vector
             for m in range(len(state_temp_list[0])):
                 state_temp_list[n][m] = state_temp_list[n][m]*state_temp_list[n][m].dag()
