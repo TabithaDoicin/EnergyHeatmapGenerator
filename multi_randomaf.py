@@ -76,7 +76,7 @@ def create_dataframe(nsys):
         
         linesDF = []
         nanDF = pd.DataFrame([np.nan],columns = ['x'])
-        for k in range(lines): 
+        for k in range(nlines): 
             dfsingleline = pd.DataFrame({'x': geff_list, 'y': energy_temp_list[k], 'weight':brightness_temp_list[k]})
             dfsinglelinewithnan = pd.concat([dfsingleline,nanDF])
             linesDF.append(dfsinglelinewithnan)
