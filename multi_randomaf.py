@@ -16,6 +16,7 @@ import pandas as pd
 np.seterr(divide='ignore', invalid='ignore')
 import concurrent.futures
 import pickle
+import time
 
 N=25
 D1=3
@@ -39,6 +40,7 @@ def create_dataframe(nsys):
     outputDF = []
     svd2list = []
     svd1list = []
+    time.sleep(0)
     for i in range(nsys):
         print(i/nsys)
         Cmatobj = t.CmatRandomAF(D1,D2,normalised)
@@ -55,7 +57,7 @@ def create_dataframe(nsys):
         for n in range(len(energy_temp_list)): #the length is the same as N*D because hamiltonian diagonalisation is the amount of energy levels
             energy_temp_list[n] = [systems_temp_list_energies[k][n] + additionscaling[k] for k in range(len(geff_list))]
             state_temp_list[n] = [systems_temp_state_list[k][n] for k in range(len(geff_list))]
-    
+        time.sleep(0)
         for n in range(len(state_temp_list)): #making actual state rho instead of vector
             for m in range(len(state_temp_list[0])):
                 state_temp_list[n][m] = state_temp_list[n][m]*state_temp_list[n][m].dag()
@@ -76,6 +78,7 @@ def create_dataframe(nsys):
             linesDF.append(dfsinglelinewithnan)
         outputDF.append(pd.concat(linesDF, ignore_index=True))
         del dfsinglelinewithnan, linesDF, nanDF, energy_temp_list, state_temp_list, brightness_temp_list
+        time.sleep(0)
     return pd.concat(outputDF, ignore_index=True), svd1list, svd2list
         
 def populate_dataframes_parallel(nsys, sets):
@@ -86,7 +89,7 @@ def populate_dataframes_parallel(nsys, sets):
     with concurrent.futures.ProcessPoolExecutor() as executor:
         # Submit tasks
         futures = [executor.submit(create_dataframe, nsys) for _ in range(sets)]
-        
+        time.sleep(0)
         # Collect results
         for future in concurrent.futures.as_completed(futures):
             df, svdarray1, svdarray2 = future.result()
