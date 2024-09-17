@@ -33,7 +33,7 @@ additionscaling = [k**2/wc for k in geff_list]
 lines = N*(D1+D2)
 
 sets = 2
-nsys = 100
+nsys = 250
 nlines = 20
 normalised = True
 
