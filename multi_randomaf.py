@@ -18,8 +18,8 @@ import concurrent.futures
 import pickle
 
 N=25
-D1=4
-D2=4
+D1=3
+D2=3
 ep1=0.2
 ep2=0.2
 wc=1
@@ -31,8 +31,8 @@ geff_list = np.linspace(geff_list_min, geff_list_max, geff_list_num)
 additionscaling = [k**2/wc for k in geff_list]
 lines = N*(D1+D2)
 
-sets = 16
-nsys = 30
+sets = 8
+nsys = 40
 normalised = True
 
 def create_dataframe(nsys):
