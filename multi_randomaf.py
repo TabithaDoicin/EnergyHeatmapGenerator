@@ -37,6 +37,7 @@ nsys = 100
 normalised = True
 
 def create_dataframe(nsys):
+    np.seterr(divide='ignore', invalid='ignore')
     outputDF = []
     svd2list = []
     svd1list = []
