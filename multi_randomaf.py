@@ -75,6 +75,7 @@ def create_dataframe(nsys):
             dfsinglelinewithnan = pd.concat([dfsingleline,nanDF])
             linesDF.append(dfsinglelinewithnan)
         outputDF.append(pd.concat(linesDF, ignore_index=True))
+        del dfsinglelinewithnan, linesDF, nanDF, energy_temp_list, state_temp_list, brightness_temp_list
     return pd.concat(outputDF, ignore_index=True), svd1list, svd2list
         
 def populate_dataframes_parallel(nsys, sets):
