@@ -12,12 +12,7 @@ import math
 import random
 import simulation_2MQRM as t
 import sys as s
-import matplotlib.pyplot as plt
 import pandas as pd
-import datashader as ds
-import datashader.transfer_functions as tf
-import colorcet as cc
-from tqdm.notebook import tnrange
 np.seterr(divide='ignore', invalid='ignore')
 import concurrent.futures
 import pickle
