@@ -12,7 +12,7 @@ from multiprocess import Process, Queue
 import scipy as sp
 import math
 import random
-
+np.seterr(divide='ignore', invalid='ignore')
 
 def glist_generator(number,uniform=False):
     out = np.zeros([number],dtype = 'f')
