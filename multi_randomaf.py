@@ -86,7 +86,7 @@ def populate_dataframes_parallel(nsys, sets):
     svd2list = []
     svd1list = []
 
-    with concurrent.futures.ProcessPoolExecutor() as executor:
+    with concurrent.futures.ThreadPoolExecutor() as executor:
         # Submit tasks
         futures = [executor.submit(create_dataframe, nsys) for _ in range(sets)]
         time.sleep(0)
