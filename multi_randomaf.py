@@ -17,7 +17,7 @@ np.seterr(divide='ignore', invalid='ignore')
 import concurrent.futures
 import pickle
 
-N=10
+N=15
 D1=3
 D2=3
 ep1=0.2
