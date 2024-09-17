@@ -31,8 +31,8 @@ geff_list = np.linspace(geff_list_min, geff_list_max, geff_list_num)
 additionscaling = [k**2/wc for k in geff_list]
 lines = N*(D1+D2)
 
-sets = 4
-nsys = 100
+sets = 16
+nsys = 30
 normalised = True
 
 def create_dataframe(nsys):
