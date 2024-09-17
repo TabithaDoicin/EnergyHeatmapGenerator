@@ -32,8 +32,9 @@ geff_list = np.linspace(geff_list_min, geff_list_max, geff_list_num)
 additionscaling = [k**2/wc for k in geff_list]
 lines = N*(D1+D2)
 
-sets = 4
-nsys = 200
+sets = 2
+nsys = 100
+nlines = 20
 normalised = True
 
 def create_dataframe(nsys):
@@ -54,8 +55,8 @@ def create_dataframe(nsys):
         for k in range(geff_list_num):
             systems_temp_list[k].hamiltonian()
             systems_temp_list_energies[k], systems_temp_state_list[k] = np.array(systems_temp_list[k].H.eigenstates(sparse=True))
-        energy_temp_list = np.empty([len(systems_temp_list_energies[0])],dtype=object) #energy levels specifically!!
-        state_temp_list = np.empty([len(systems_temp_state_list[0])],dtype=object) #energy levels specifically!!
+        energy_temp_list = np.empty([len(systems_temp_list_energies[nlines])],dtype=object) #energy levels specifically!!
+        state_temp_list = np.empty([len(systems_temp_state_list[nlines])],dtype=object) #energy levels specifically!!
         for n in range(len(energy_temp_list)): #the length is the same as N*D because hamiltonian diagonalisation is the amount of energy levels
             energy_temp_list[n] = [systems_temp_list_energies[k][n] + additionscaling[k] for k in range(len(geff_list))]
             state_temp_list[n] = [systems_temp_state_list[k][n] for k in range(len(geff_list))]
@@ -65,7 +66,7 @@ def create_dataframe(nsys):
             for m in range(len(state_temp_list[0])):
                 state_temp_list[n][m] = state_temp_list[n][m]*state_temp_list[n][m].dag()
     
-        brightness_temp_list = np.empty([N*(D1+D2),len(geff_list)], dtype = np.float64)
+        brightness_temp_list = np.empty([nlines,len(geff_list)], dtype = np.float64)
     
         for n in range(len(brightness_temp_list)):
             for m in range(len(brightness_temp_list[0])):
