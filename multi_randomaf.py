@@ -19,21 +19,21 @@ import pickle
 import time
 
 N=24
-D1=3
-D2=3
-ep1=0.2
-ep2=0.2
+D1=4
+D2=4
+ep1=0.15
+ep2=0.15
 wc=1
 wa=1
 geff_list_min = 0
-geff_list_max = 2.6
-geff_list_num = 175
+geff_list_max = 3
+geff_list_num = 200
 geff_list = np.linspace(geff_list_min, geff_list_max, geff_list_num) 
 additionscaling = [k**2/wc for k in geff_list]
 lines = N*(D1+D2)
 
 sets = 2
-nsys = 250
+nsys = 300
 nlines = 20
 normalised = True
 
@@ -67,17 +67,20 @@ def create_dataframe(nsys):
                 state_temp_list[n][m] = state_temp_list[n][m]*state_temp_list[n][m].dag()
     
         brightness_temp_list = np.empty([nlines,len(geff_list)], dtype = np.float64)
-    
+        sval_temp_list = np.empty([nlines,len(geff_list)], dtype = np.float64)
+        
         for n in range(len(brightness_temp_list)):
             for m in range(len(brightness_temp_list[0])):
                 brightness_temp_list[n][m] = systems_temp_list[m].brightness_proportion(state_temp_list[n][m])
+                sval_temp_list[n][m] = systems_temp_list[m].s_value(sval_temp_list[n][m])
         
             brightness_temp_list[n] = [0 if math.isnan(x) else x for x in brightness_temp_list[n]] # forcing normalisation on lower value to be 0.
+            sval_temp_list[n] = [0 if math.isnan(x) else x for x in sval_temp_list[n]] # forcing normalisation on lower value to be 0.
         
         linesDF = []
         nanDF = pd.DataFrame([np.nan],columns = ['x'])
         for k in range(nlines): 
-            dfsingleline = pd.DataFrame({'x': geff_list, 'y': energy_temp_list[k], 'weight':brightness_temp_list[k]})
+            dfsingleline = pd.DataFrame({'x': geff_list, 'y': energy_temp_list[k], 'brightness':brightness_temp_list[k], 'svalue':sval_temp_list[k]})
             dfsinglelinewithnan = pd.concat([dfsingleline,nanDF])
             linesDF.append(dfsinglelinewithnan)
         outputDF.append(pd.concat(linesDF, ignore_index=True))
