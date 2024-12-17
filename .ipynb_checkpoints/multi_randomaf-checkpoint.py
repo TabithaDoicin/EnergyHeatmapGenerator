@@ -18,11 +18,11 @@ import concurrent.futures
 import pickle
 import time
 
-N=26
-D1=5
-D2=5
-ep1=0.15
-ep2=0.15
+N=24
+D1=3
+D2=3
+ep1=0.1
+ep2=0.1
 wc=1
 wa=1
 geff_list_min = 0
