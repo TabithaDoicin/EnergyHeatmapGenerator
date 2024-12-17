@@ -12,7 +12,7 @@ from multiprocess import Process, Queue
 import scipy as sp
 import math
 import random
-np.seterr(divide='ignore', invalid='ignore')
+
 
 def glist_generator(number,uniform=False):
     out = np.zeros([number],dtype = 'f')
@@ -88,7 +88,7 @@ class CmatDiagonal:
 
 class CmatRandomAF:
     def __init__(self, DG, DE, normalised, var_independent=1/np.sqrt(2)):
-        self.data = np.random.normal(0,1*var_independent,size=(N,M)) + 1j * np.random.normal(0,1*var_independent,size=(N,M))
+        self.data = np.random.normal(0,1*var_independent,size=(DG,DE)) + 1j * np.random.normal(0,1*var_independent,size=(DG,DE))
         self.U, self.svdvals, self.Vt = sp.linalg.svd(self.data)
         if normalised == True:
             self.data = 1/self.svdvals[0]*self.data
@@ -131,7 +131,8 @@ def expmToN(mat,order):
     return result
 
 def elevelspacings(eigens, eigvecs, parity_op, parity_val=1, cutoff=0.6):
-    parity_expect_list = np.asarray(np.round(qt.expect(parity_op, eigvecs),0), dtype = 'int')[0:int(round(cutoff*eigens.size))]
+    parity_expect_list = np.asarray(np.round(qt.expect(parity_op, eigvecs)),dtype=int)[0:int(round(cutoff*eigens.size))]
+    print(parity_expect_list)
     array_indices = np.where(parity_expect_list==parity_val)[0]
     energies_of_parity = [eigens[k] for k in array_indices]
     energy_diff = [np.subtract(energies_of_parity[n+1], energies_of_parity[n]) for n in range(len(energies_of_parity)-1)]
@@ -209,9 +210,6 @@ class DoubleMultilevel:
         self.Pexp = 1j * np.pi * self.n_op_tot
         self.P = self.Pexp.expm()
         
-        
-  
-        
     def collapse(self):
         #collapse operators
         self.coop_cavity_decay = [np.sqrt(self.kappa)*self.a]
@@ -238,7 +236,7 @@ class DoubleMultilevel:
         svdvals = self.C_fullsvdvals
         svalue = sum([(i+1)*(densitymat*(qt.tensor(qt.operators.qeye(self.N), self.BGroundStates[i]*self.BGroundStates[i].dag()) \
                                                     + qt.tensor(qt.operators.qeye(self.N), self.BExcitedStates[i]*self.BExcitedStates[i].dag()))).tr() for i in range(min(self.D1,self.D2))])
-        return svalue
+        return np.real(svalue)
 
     def parity_value(self, densitymat):
         parity = (densitymat*(self.P)).tr()

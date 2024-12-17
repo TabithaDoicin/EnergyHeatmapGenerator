@@ -88,7 +88,7 @@ class CmatDiagonal:
 
 class CmatRandomAF:
     def __init__(self, DG, DE, normalised, var_independent=1/np.sqrt(2)):
-        self.data = np.random.normal(0,1*var_independent,size=(N,M)) + 1j * np.random.normal(0,1*var_independent,size=(N,M))
+        self.data = np.random.normal(0,1*var_independent,size=(DG,DE)) + 1j * np.random.normal(0,1*var_independent,size=(DG,DE))
         self.U, self.svdvals, self.Vt = sp.linalg.svd(self.data)
         if normalised == True:
             self.data = 1/self.svdvals[0]*self.data
