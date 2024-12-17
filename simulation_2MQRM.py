@@ -220,7 +220,7 @@ class DoubleMultilevel:
         self.c_ops = self.coop_cavity_decay + self.coop_radiative_decay + self.coop_dephasing + self.coop_pumping
         
     def hamiltonian(self):
-        self.H_i = sum([sum([self.Cmat[n,m-self.D1]*(self.adag + self.a)*(self.vec[n,m] + self.vec[m,n]) for n in  range(0,self.D1)]) for m in range(self.D1,self.totalD)])
+        self.H_i = sum([sum([(self.adag + self.a)*(self.Cmat[n,m-self.D1]*self.vec[n,m] + np.conj(self.Cmat[n,m-self.D1])*self.vec[m,n]) for n in  range(0,self.D1)]) for m in range(self.D1,self.totalD)])
         self.H = self.wc*self.adag*self.a + sum([(-self.wa/2+self.delta1[i])*self.vec[i,i] for i in range(0,self.D1)]) \
             + sum([(self.wa/2 + self.delta2[i-self.D1])*self.vec[i,i] for i in range(self.D1,self.totalD)]) \
             + self.H_i
