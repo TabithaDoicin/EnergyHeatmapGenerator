@@ -86,6 +86,11 @@ class CmatDiagonal:
         self.data = np.diag([1 for k in range(DG)])
         self.U, self.svdvals, self.Vt = sp.linalg.svd(self.data)
 
+class CmatCustom:
+    def __init__(self,diagonalentries):
+        self.data = np.diag(diagonalentries)
+        self.U, self.svdvals, self.Vt = sp.linalg.svd(self.data)
+
 class CmatRandomAF:
     def __init__(self, DG, DE, normalised, var_independent=1/np.sqrt(2)):
         self.data = np.random.normal(0,1*var_independent,size=(DG,DE)) + 1j * np.random.normal(0,1*var_independent,size=(DG,DE))
