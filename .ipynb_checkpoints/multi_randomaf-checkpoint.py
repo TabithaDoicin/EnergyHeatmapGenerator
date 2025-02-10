@@ -55,7 +55,7 @@ def create_dataframe(nsys):
         systems_temp_state_list = np.empty([geff_list_num], dtype = object)
         for k in range(geff_list_num):
             systems_temp_list[k].hamiltonian()
-            systems_temp_list_energies[k], systems_temp_state_list[k] = np.array(systems_temp_list[k].H.eigenstates(sparse=False)#,eigvals=nlines))
+            systems_temp_list_energies[k], systems_temp_state_list[k] = np.array(systems_temp_list[k].H.eigenstates(sparse=False))#,eigvals=nlines))
         energy_temp_list = np.empty([len(systems_temp_list_energies[nlines])],dtype=object) #energy levels specifically!!
         state_temp_list = np.empty([len(systems_temp_state_list[nlines])],dtype=object) #energy levels specifically!!
         for n in range(len(energy_temp_list)): #the length is the same as N*D because hamiltonian diagonalisation is the amount of energy levels
