@@ -18,9 +18,9 @@ import concurrent.futures
 import pickle
 import time
 
-N=20
-D1=2
-D2=2
+N=24
+D1=10
+D2=10
 ep1=0.1
 ep2=0.1
 wc=1
@@ -34,7 +34,7 @@ lines = N*(D1+D2)
 
 sets = 2
 nsys = 300
-nlines = 20
+nlines = 80
 normalised = True
 
 def create_dataframe(nsys):
