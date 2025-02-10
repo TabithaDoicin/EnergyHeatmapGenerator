@@ -32,8 +32,8 @@ geff_list = np.linspace(geff_list_min, geff_list_max, geff_list_num)
 additionscaling = [k**2/wc for k in geff_list]
 lines = N*(D1+D2)
 
-sets = 2
-nsys = 300
+sets = 8
+nsys = 75
 nlines = 80
 normalised = True
 
