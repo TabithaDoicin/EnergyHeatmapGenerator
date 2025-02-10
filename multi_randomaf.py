@@ -44,6 +44,7 @@ def create_dataframe(nsys):
     svd1list = []
     time.sleep(0)
     for i in range(nsys):
+        start_time = time.time()
         print(i/nsys)
         Cmatobj = t.CmatRandomAF(D1,D2,normalised)
         svd1list.append(Cmatobj.svdvals[0])
@@ -54,7 +55,7 @@ def create_dataframe(nsys):
         systems_temp_state_list = np.empty([geff_list_num], dtype = object)
         for k in range(geff_list_num):
             systems_temp_list[k].hamiltonian()
-            systems_temp_list_energies[k], systems_temp_state_list[k] = np.array(systems_temp_list[k].H.eigenstates(sparse=False,eigvals=nlines))
+            systems_temp_list_energies[k], systems_temp_state_list[k] = np.array(systems_temp_list[k].H.eigenstates(sparse=False)#,eigvals=nlines))
         energy_temp_list = np.empty([len(systems_temp_list_energies[nlines])],dtype=object) #energy levels specifically!!
         state_temp_list = np.empty([len(systems_temp_state_list[nlines])],dtype=object) #energy levels specifically!!
         for n in range(len(energy_temp_list)): #the length is the same as N*D because hamiltonian diagonalisation is the amount of energy levels
@@ -86,6 +87,8 @@ def create_dataframe(nsys):
         outputDF.append(pd.concat(linesDF, ignore_index=True))
         del dfsinglelinewithnan, linesDF, nanDF, energy_temp_list, state_temp_list, brightness_temp_list
         time.sleep(0)
+        end_time = time.time()
+        print("total time taken this loop: ", end_time - start_time)
     return pd.concat(outputDF, ignore_index=True), svd1list, svd2list
         
 def populate_dataframes_parallel(nsys, sets):
