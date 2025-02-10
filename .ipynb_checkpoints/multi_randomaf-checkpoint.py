@@ -18,16 +18,16 @@ import concurrent.futures
 import pickle
 import time
 
-N=24
-D1=3
-D2=3
+N=20
+D1=2
+D2=2
 ep1=0.1
 ep2=0.1
 wc=1
 wa=1
 geff_list_min = 0
 geff_list_max = 3
-geff_list_num = 150
+geff_list_num = 100
 geff_list = np.linspace(geff_list_min, geff_list_max, geff_list_num) 
 additionscaling = [k**2/wc for k in geff_list]
 lines = N*(D1+D2)
