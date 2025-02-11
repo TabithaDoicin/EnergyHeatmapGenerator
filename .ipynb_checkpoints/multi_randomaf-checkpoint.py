@@ -19,22 +19,22 @@ import pickle
 import time
 
 N=24
-D1=3
-D2=3
+D1=6
+D2=6
 ep1=0.1
 ep2=0.1
 wc=1
 wa=1
 geff_list_min = 0
 geff_list_max = 2.75
-geff_list_num = 50
+geff_list_num = 140
 geff_list = np.linspace(geff_list_min, geff_list_max, geff_list_num) 
 additionscaling = [k**2/wc for k in geff_list]
 lines = N*(D1+D2)
 
 sets = 12
 nsys = 50
-nlines = 40
+nlines = 60
 normalised = True
 
 def create_dataframe(nsys):
