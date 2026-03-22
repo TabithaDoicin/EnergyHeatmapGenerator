@@ -18,8 +18,8 @@ import concurrent.futures
 import pickle
 import time
 
-N=24
-D1=5
+N=18
+D1=2
 D2=10
 ep1=0.1
 ep2=0.1
