@@ -20,11 +20,11 @@ import time
 
 N=17
 D1=2
-D2=10
+D2=6
 ep1=0.1
 ep2=0.1
 wc=1
-wa=1
+wa=0.5
 geff_list_min = 0
 geff_list_max = 2
 geff_list_num = 80
